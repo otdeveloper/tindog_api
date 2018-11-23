@@ -3,10 +3,11 @@ package com.key.tindog.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "locations")
 public class Location {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private double latitude;
@@ -15,8 +16,7 @@ public class Location {
 
     public Location(){}
 
-    public Location(Long id, double latitude, double longitude) {
-        this.id = id;
+    public Location(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }

@@ -3,21 +3,32 @@ package com.key.tindog.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Profile")
+@Table(name = "profiles")
 public class Profile {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     private String firstName;
 
     private String lastName;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id")
+    private Image image;
 
-    public Profile(String firstName, String lastName) {
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id")
+    private Location location;
+
+    public Profile(){}
+
+    public Profile(String firstName, String lastName, Image image, Location location) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.image = image;
+        this.location = location;
     }
 
     public Long getId() {
@@ -44,4 +55,19 @@ public class Profile {
         this.lastName = lastName;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 }
