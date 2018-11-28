@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -22,7 +22,7 @@ public class ProfileController {
         this.profileService = profileService;
     }
 
-    @PostMapping("/uploadProfile")
+    @PostMapping("/uploadProfile/")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file,
                                              @RequestParam("firstName") String firstName,
                                              @RequestParam("lastName") String lastName,
@@ -37,10 +37,10 @@ public class ProfileController {
     }
 
 
-    @GetMapping("getProfiles/")
-    public ArrayList<Profile> getProfiles(@RequestParam("range") int range,
-                                          @RequestParam("lat") double lat,
-                                          @RequestParam("lon") double lon) {
+    @GetMapping("/getProfiles/")
+    public List<Profile> getProfiles(@RequestParam("range") int range,
+                                     @RequestParam("lat") double lat,
+                                     @RequestParam("lon") double lon) {
         return profileService.getProfilesInRange(new Location(lat, lon), range);
 
     }

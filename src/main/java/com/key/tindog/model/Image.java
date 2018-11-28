@@ -18,6 +18,7 @@ public class Image {
     private String fileType;
 
     @Lob
+    @JsonIgnore
     private byte[] data;
 
     public Image() {

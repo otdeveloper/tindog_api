@@ -8,6 +8,8 @@ import com.key.tindog.repository.ProfileRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfileService {
@@ -31,13 +33,11 @@ public class ProfileService {
         return profileRepository.findById(Id).orElseThrow(() -> new ProfileNotFoundException("Profile not found with id " + Id));
     }
 
-    public ArrayList<Profile> getProfilesInRange(Location location, int range) {
+    public List<Profile> getProfilesInRange(Location location, int range) {
         ArrayList<Profile> allByLocationIsNear = profileRepository.findAll();
-        for (Profile profile : allByLocationIsNear) {
-            if (LocationService.getDistance(location, profile.getLocation()) > range) {
-                allByLocationIsNear.remove(profile);
-            }
-        }
-        return allByLocationIsNear;
+
+        return allByLocationIsNear.stream()
+                .filter(profile -> LocationService.getDistance(location, profile.getLocation()) < range)
+                .collect(Collectors.toList());
     }
 }
