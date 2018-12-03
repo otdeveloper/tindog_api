@@ -8,7 +8,7 @@
 //@Entity
 //public class User {
 //
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    Long id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+//	Long id;
 //}

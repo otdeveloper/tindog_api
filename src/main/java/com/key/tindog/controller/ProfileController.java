@@ -16,40 +16,40 @@ import java.util.Map;
 @RestController
 public class ProfileController {
 
-    private final ProfileService profileService;
+	private final ProfileService profileService;
 
-    public ProfileController(ProfileService profileService) {
-        this.profileService = profileService;
-    }
+	public ProfileController(ProfileService profileService) {
+		this.profileService = profileService;
+	}
 
-    @PostMapping("/uploadProfile/")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file,
-                                             @RequestParam("firstName") String firstName,
-                                             @RequestParam("lastName") String lastName,
-                                             @RequestParam(value = "location") double[] location) {
+	@PostMapping("/uploadProfile/")
+	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file,
+	                                         @RequestParam("firstName") String firstName,
+	                                         @RequestParam("lastName") String lastName,
+	                                         @RequestParam(value = "location") double[] location) {
 
-        Image image = ImageService.parseToImage(file);
+		Image image = ImageService.parseToImage(file);
 
-        Profile profile = new Profile(firstName, lastName, image, new Location(location[0], location[1]));
-        profileService.saveProfile(profile);
+		Profile profile = new Profile(firstName, lastName, image, new Location(location[0], location[1]));
+		profileService.saveProfile(profile);
 
-        return new ResponseEntity<>("uploaded id = " + profile.getId(), HttpStatus.ACCEPTED);
-    }
+		return new ResponseEntity<>("uploaded id = " + profile.getId(), HttpStatus.ACCEPTED);
+	}
 
 
-    @GetMapping("/getProfiles/")
-    public List<Profile> getProfiles(@RequestParam("range") int range,
-                                     @RequestParam("lat") double lat,
-                                     @RequestParam("lon") double lon) {
-        return profileService.getProfilesInRange(new Location(lat, lon), range);
+	@GetMapping("/getProfilesByLocation/")
+	public List<Profile> getProfilesByLocation(@RequestParam("range") int range,
+	                                           @RequestParam("lat") double lat,
+	                                           @RequestParam("lon") double lon) {
+		return profileService.getProfilesInRange(new Location(lat, lon), range);
 
-    }
+	}
 
-    @GetMapping("/downloadProfile/{fileId}")
-    public Profile downloadProfile(@PathVariable String fileId, Map response) {
-        //String encodedImage = Base64.getEncoder().encodeToString(profile.getImage().getData());
-        return profileService.findById(Long.parseLong(fileId));
-    }
+	@GetMapping("/getProfileById/{fileId}")
+	public Profile getProfileById(@PathVariable String fileId, Map response) {
+		//String encodedImage = Base64.getEncoder().encodeToString(profile.getImage().getData());
+		return profileService.findById(Long.parseLong(fileId));
+	}
 
 
 }

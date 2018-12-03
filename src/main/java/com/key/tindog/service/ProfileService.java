@@ -14,30 +14,30 @@ import java.util.stream.Collectors;
 @Service
 public class ProfileService {
 
-    private final ProfileRepository profileRepository;
+	private final ProfileRepository profileRepository;
 
-    public ProfileService(ProfileRepository profileRepository) {
-        this.profileRepository = profileRepository;
-    }
+	public ProfileService(ProfileRepository profileRepository) {
+		this.profileRepository = profileRepository;
+	}
 
-    public void saveProfile(Profile profile) {
-        try {
-            profileRepository.save(profile);
+	public void saveProfile(Profile profile) {
+		try {
+			profileRepository.save(profile);
 
-        } catch (Exception e) {
-            throw new FileStorageException("Error saving profile to DB: Id = " + profile.getId());
-        }
-    }
+		} catch (Exception e) {
+			throw new FileStorageException("Error saving profile to DB: Id = " + profile.getId());
+		}
+	}
 
-    public Profile findById(Long Id) {
-        return profileRepository.findById(Id).orElseThrow(() -> new ProfileNotFoundException("Profile not found with id " + Id));
-    }
+	public Profile findById(Long Id) {
+		return profileRepository.findById(Id).orElseThrow(() -> new ProfileNotFoundException("Profile not found with id " + Id));
+	}
 
-    public List<Profile> getProfilesInRange(Location location, int range) {
-        ArrayList<Profile> allByLocationIsNear = profileRepository.findAll();
+	public List<Profile> getProfilesInRange(Location location, int range) {
+		ArrayList<Profile> allByLocationIsNear = profileRepository.findAll();
 
-        return allByLocationIsNear.stream()
-                .filter(profile -> LocationService.getDistance(location, profile.getLocation()) < range)
-                .collect(Collectors.toList());
-    }
+		return allByLocationIsNear.stream()
+				.filter(profile -> LocationService.getDistance(location, profile.getLocation()) < range)
+				.collect(Collectors.toList());
+	}
 }
