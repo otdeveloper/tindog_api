@@ -8,6 +8,7 @@ import com.key.tindog.repository.ProfileRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,10 @@ public class ProfileService {
 
 		return allByLocationIsNear.stream()
 				.filter(profile -> LocationService.getDistance(location, profile.getLocation()) < range)
+				.sorted(Comparator.comparing(profile -> LocationService.getDistance(location, profile.getLocation())))
 				.collect(Collectors.toList());
+	}
+	public List<Profile> getAllProfiles(){
+		return profileRepository.findAll();
 	}
 }

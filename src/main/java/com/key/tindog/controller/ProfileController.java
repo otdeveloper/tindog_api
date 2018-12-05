@@ -51,5 +51,9 @@ public class ProfileController {
 		return profileService.findById(Long.parseLong(fileId));
 	}
 
+	@GetMapping("admin.getAllProfiles")
+	public List<Profile> getAllProfiles(){
+		return profileService.getAllProfiles();
+	}
 
 }
