@@ -28,12 +28,13 @@ public class User implements UserDetails {
 	@Column(name = "enabled", nullable = false)
 	private boolean isEnabled;
 
-	@Column(name = "roles", nullable = false)
+	@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+	@Column(name = "role", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private Set<Role> userRoles;
+	private Set<Role> roles;
 
-	public User() {
-	}
+	public User() {}
 
 	public User(String email, String userName, String password) {
 		this.email = email;
@@ -67,16 +68,15 @@ public class User implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return userRoles;
+		return roles;
 	}
 
-	public Collection<? extends GrantedAuthority> getUserRoles() {
-		return getAuthorities();
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-
-	public void setUserRoles(Set<Role> userRoles) {
-		this.userRoles = userRoles;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	public String getPassword() {
