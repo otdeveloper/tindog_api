@@ -1,5 +1,9 @@
 package com.key.tindog.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,6 +13,10 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
+@Data
+@NoArgsConstructor
+@RequiredArgsConstructor
+@Table(name = "users")
 public class User implements UserDetails {
 
 	@Id
@@ -17,12 +25,15 @@ public class User implements UserDetails {
 
 	@Email
 	@Column(nullable = false)
+	@NonNull
 	private String email;
 
 	@Column(name = "username", unique = true, nullable = false, length = 45)
+	@NonNull
 	private String userName;
 
 	@Column(name = "password", nullable = false, length = 60)
+	@NonNull
 	private String password;
 
 	@Column(name = "enabled", nullable = false)
@@ -34,58 +45,11 @@ public class User implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	private Set<Role> roles;
 
-	public User() {}
-
-	public User(String email, String userName, String password) {
-		this.email = email;
-		this.userName = userName;
-		this.password = password;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	@Override
 	public String getUsername() {
@@ -110,11 +74,5 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return isEnabled;
 	}
-
-
-	public void setEnabled(boolean enabled) {
-		isEnabled = enabled;
-	}
-
 
 }

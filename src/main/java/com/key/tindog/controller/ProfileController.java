@@ -6,10 +6,6 @@ import com.key.tindog.model.Location;
 import com.key.tindog.model.Profile;
 import com.key.tindog.service.ImageService;
 import com.key.tindog.service.ProfileService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +16,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/profiles")
-@Api(tags = "Profiles", description = "Profiles API")
 public class ProfileController {
 
 	private final ProfileService profileService;
@@ -29,7 +24,7 @@ public class ProfileController {
 		this.profileService = profileService;
 	}
 
-	@PostMapping()
+	@PostMapping
 	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file,
 	                                         @RequestParam("firstName") String firstName,
 	                                         @RequestParam("lastName") String lastName,
@@ -37,7 +32,7 @@ public class ProfileController {
 
 		Image image = ImageService.parseToImage(file);
 
-		Profile profile = new Profile(firstName, lastName, image, new Location(location[0], location[1]));
+		Profile profile = new Profile(null, firstName, lastName, image, new Location(location[0], location[1]));
 		profileService.saveProfile(profile);
 
 		return new ResponseEntity<>("uploaded id = " + profile.getId(), HttpStatus.ACCEPTED);
@@ -45,7 +40,6 @@ public class ProfileController {
 
 
 	@GetMapping()
-	@ApiOperation(value = "Find closest profiles")
 	public List<Profile> getProfilesByLocation(@RequestParam("range") int range,
 	                                           @RequestParam("lat") double lat,
 	                                           @RequestParam("lon") double lon) {

@@ -1,10 +1,17 @@
 package com.key.tindog.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@Data
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "locations")
 public class Location {
 
@@ -13,39 +20,9 @@ public class Location {
 	@JsonIgnore
 	private Long id;
 
+	@NonNull
 	private double latitude;
 
+	@NonNull
 	private double longitude;
-
-	public Location() {
-	}
-
-	public Location(double latitude, double longitude) {
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
-
-	public double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-
-	public double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 }

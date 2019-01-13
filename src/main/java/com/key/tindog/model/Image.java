@@ -1,10 +1,17 @@
 package com.key.tindog.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@Data
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "images")
 public class Image {
 
@@ -13,52 +20,14 @@ public class Image {
 	@JsonIgnore
 	private Long id;
 
+	@NonNull
 	private String fileName;
 
+	@NonNull
 	private String fileType;
 
 	@Lob
 	@JsonIgnore
+	@NonNull
 	private byte[] data;
-
-	public Image() {
-	}
-
-	public Image(String fileName, String fileType, byte[] data) {
-		this.fileName = fileName;
-		this.fileType = fileType;
-		this.data = data;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public String getFileType() {
-		return fileType;
-	}
-
-	public void setFileType(String fileType) {
-		this.fileType = fileType;
-	}
-
-	public byte[] getData() {
-		return data;
-	}
-
-	public void setData(byte[] data) {
-		this.data = data;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 }
