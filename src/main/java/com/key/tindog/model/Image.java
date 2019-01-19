@@ -1,16 +1,13 @@
 package com.key.tindog.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @RequiredArgsConstructor
 @Table(name = "images")
 public class Image {
@@ -23,11 +20,7 @@ public class Image {
 	@NonNull
 	private String fileName;
 
-	@NonNull
-	private String fileType;
-
 	@Lob
-	@JsonIgnore
 	@NonNull
-	private byte[] data;
+	private String base64Image;
 }

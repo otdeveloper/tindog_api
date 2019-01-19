@@ -7,7 +7,7 @@ public class LocationServiceTests {
 
     @Test
     public void getDistanceTest() {
-//       double[] adressOne = {55.688680, 37.584568};
+//      double[] adressOne = {55.688680, 37.584568};
 //      double[] adressTwo = {55.684818, 37.579978};
         double[] adressOne = {1, 1};
         double[] adressTwo = {2, 2};

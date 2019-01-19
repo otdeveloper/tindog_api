@@ -8,6 +8,5 @@ import java.util.ArrayList;
 
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
-
 	ArrayList<Profile> findAll();
 }

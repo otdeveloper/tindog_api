@@ -2,6 +2,7 @@ package com.key.tindog.service;
 
 import com.key.tindog.exception.FileStorageException;
 import com.key.tindog.exception.ProfileNotFoundException;
+import com.key.tindog.model.Image;
 import com.key.tindog.model.Location;
 import com.key.tindog.model.Profile;
 import com.key.tindog.repository.ProfileRepository;
@@ -32,6 +33,10 @@ public class ProfileService {
 
 	public Profile findById(Long Id) {
 		return profileRepository.findById(Id).orElseThrow(() -> new ProfileNotFoundException("Profile not found with id " + Id));
+	}
+
+	public Image findImageById(Long fileId) {
+		return findById(fileId).getImage();
 	}
 
 	public List<Profile> getProfilesInRange(Location location, int range) {

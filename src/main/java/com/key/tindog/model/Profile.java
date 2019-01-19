@@ -1,15 +1,13 @@
 package com.key.tindog.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "profiles")
 public class Profile {
 
@@ -17,16 +15,20 @@ public class Profile {
 	@GeneratedValue
 	private Long id;
 
+	@NonNull
 	private String firstName;
 
+	@NonNull
 	private String lastName;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "image_id")
+	@NonNull
 	private Image image;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "location_id")
+	@NonNull
 	private Location location;
 
 }
